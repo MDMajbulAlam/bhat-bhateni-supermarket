@@ -40,9 +40,9 @@ try{
      Rs = St.executeQuery("Select * from USER1.PRODUCTTBL");
      ProductTable.setModel(DbUtils.resultSetToTableModel(Rs));
 }catch(Exception e)
-{
+    {
     e.printStackTrace();
-}
+    }
 }
 private void GetCat()
 {
@@ -557,7 +557,7 @@ private void GetCat()
     }//GEN-LAST:event_DeleteBtnMouseClicked
 
     private void ProductTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductTableMouseClicked
-  DefaultTableModel model = (DefaultTableModel)ProductTable.getModel();
+      DefaultTableModel model = (DefaultTableModel)ProductTable.getModel();
       int Myindex = ProductTable.getSelectedRow();
       ProdId.setText(model.getValueAt(Myindex, 0).toString());
       ProdName.setText(model.getValueAt(Myindex, 1).toString());
@@ -566,9 +566,9 @@ private void GetCat()
     }//GEN-LAST:event_ProductTableMouseClicked
 
     private void UpdateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateBtnMouseClicked
-       if(ProdId.getText().isEmpty()|| ProdName.getText().isEmpty()|| ProdQty.getText().isEmpty()|| ProdPrice.getText().isEmpty())
+       if(ProdId.getText().isEmpty()||ProdName.getText().isEmpty()||ProdQty.getText().isEmpty()||ProdPrice.getText().isEmpty())
        {
-           JOptionPane.showMessageDialog(this,"Missing Information");
+           JOptionPane.showMessageDialog(this, "Missing Information");
        }
        else{
            try{
@@ -576,7 +576,7 @@ private void GetCat()
                  String Query ="Update USER1.PRODUCTTBL set PRODNAME='"+ProdName.getText()+"'"+",PRODQTY="+ProdQty.getText()+""+",PRODPRICE="+ProdPrice.getText()+""+",PRODCAT='"+CatCb.getSelectedItem().toString()+"'"+"where PRODID="+ProdId.getText();
                  Statement Add = Con.createStatement();
                  Add.executeUpdate(Query);
-                  JOptionPane.showMessageDialog(this,"Product Updated");
+                  JOptionPane.showMessageDialog(this, "Product Updated");
                   SelectSeller();
            }catch(SQLException e)
            {
