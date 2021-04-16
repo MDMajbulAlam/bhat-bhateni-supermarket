@@ -51,6 +51,7 @@ public class Login extends javax.swing.JFrame {
         Login = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
+        Showpassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -182,6 +183,14 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        Showpassword.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Showpassword.setText("Show Password");
+        Showpassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowpasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -208,10 +217,12 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(39, 39, 39)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Uid)
-                            .addComponent(RoleCb, 0, 245, Short.MAX_VALUE)
-                            .addComponent(password, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Showpassword, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(Uid)
+                                .addComponent(RoleCb, 0, 245, Short.MAX_VALUE)
+                                .addComponent(password, javax.swing.GroupLayout.Alignment.LEADING)))))
                 .addGap(34, 34, 34))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -237,6 +248,8 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(Showpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,6 +335,16 @@ ResultSet Rs = null;
       password.setText("");
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void ShowpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowpasswordActionPerformed
+        // TODO add your handling code here:
+          if(Showpassword.isSelected())
+        {
+            password.setEchoChar((char)0);
+        }
+        else
+            password.setEchoChar('*');
+    }//GEN-LAST:event_ShowpasswordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -360,6 +383,7 @@ ResultSet Rs = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Login;
     private javax.swing.JComboBox RoleCb;
+    private javax.swing.JCheckBox Showpassword;
     private javax.swing.JTextField Uid;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

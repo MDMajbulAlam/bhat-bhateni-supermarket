@@ -5,12 +5,18 @@
  */
 package bhatbhateni.supermarket;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -18,7 +24,7 @@ import net.proteanit.sql.DbUtils;
  *
  * @author Majbul Rahman
  */
-public class Selling extends javax.swing.JFrame {
+public final class Selling extends javax.swing.JFrame {
 
     /**
      * Creates new form Selling
@@ -26,12 +32,37 @@ public class Selling extends javax.swing.JFrame {
     public Selling() {
         initComponents();
         SelectSeller();
-        GetCat();   
+        GetCat();
+        showDate();
+        showTime();
+     
     }
 
-Connection Con = null;
-Statement St = null;
-ResultSet Rs = null;
+    void showDate() {
+        Date d = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
+        dateLab.setText(s.format(d));
+
+    }
+
+    void showTime() {
+        new Timer(0, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Date d = new Date();
+                SimpleDateFormat s = new SimpleDateFormat("hh:mm:ss a");
+                timeLab.setText(s.format(d));
+
+            }
+        }
+        ).start();
+    }
+
+    Connection Con = null;
+    Statement St = null;
+    ResultSet Rs = null;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -55,6 +86,14 @@ ResultSet Rs = null;
         RefreshBtn = new javax.swing.JButton();
         CatCb = new javax.swing.JComboBox();
         FilterBy = new javax.swing.JButton();
+        Grdtotallbl2 = new javax.swing.JLabel();
+        Pay = new javax.swing.JTextField();
+        Grdtotallbl3 = new javax.swing.JLabel();
+        Balance = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        dateLab = new javax.swing.JTextField();
+        timeLab = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -122,13 +161,13 @@ ResultSet Rs = null;
         jLabel7.setForeground(new java.awt.Color(0, 153, 153));
         jLabel7.setText("QUANTITY");
 
-        ProductTable.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        ProductTable.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
         ProductTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "NAME", "QUANTITY", "PRICE", "CATEGORY"
+                "ID", "NAME", "QUANTITY", "PRICE", "CATEGORY", "LOCATION"
             }
         ));
         ProductTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
@@ -147,7 +186,7 @@ ResultSet Rs = null;
         jLabel2.setText("PRODUCTS LIST");
 
         BillTxt.setColumns(20);
-        BillTxt.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        BillTxt.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
         BillTxt.setRows(5);
         jScrollPane2.setViewportView(BillTxt);
 
@@ -166,7 +205,7 @@ ResultSet Rs = null;
         });
 
         Grdtotallbl.setBackground(new java.awt.Color(255, 51, 51));
-        Grdtotallbl.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        Grdtotallbl.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         Grdtotallbl.setForeground(new java.awt.Color(204, 0, 0));
         Grdtotallbl.setText("Rs");
 
@@ -200,6 +239,58 @@ ResultSet Rs = null;
             }
         });
 
+        Grdtotallbl2.setBackground(new java.awt.Color(255, 51, 51));
+        Grdtotallbl2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        Grdtotallbl2.setForeground(new java.awt.Color(204, 0, 0));
+        Grdtotallbl2.setText("Pay");
+
+        Pay.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        Pay.setForeground(new java.awt.Color(255, 0, 0));
+        Pay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PayActionPerformed(evt);
+            }
+        });
+
+        Grdtotallbl3.setBackground(new java.awt.Color(255, 51, 51));
+        Grdtotallbl3.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        Grdtotallbl3.setForeground(new java.awt.Color(204, 0, 0));
+        Grdtotallbl3.setText("Balance");
+
+        Balance.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        Balance.setForeground(new java.awt.Color(255, 0, 0));
+        Balance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BalanceActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setBackground(new java.awt.Color(255, 51, 51));
+        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel11.setText("Date:");
+
+        jLabel12.setBackground(new java.awt.Color(255, 51, 51));
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel12.setText("Time:");
+
+        dateLab.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        dateLab.setForeground(new java.awt.Color(255, 0, 0));
+        dateLab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateLabActionPerformed(evt);
+            }
+        });
+
+        timeLab.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        timeLab.setForeground(new java.awt.Color(255, 0, 0));
+        timeLab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeLabActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -225,34 +316,59 @@ ResultSet Rs = null;
                                 .addComponent(RefreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(15, 15, 15))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ProdQty, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(ProdQty, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(AddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                                        .addComponent(ClearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(26, 26, 26)))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(Grdtotallbl)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(AddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                                .addComponent(ClearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(243, 243, 243))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(195, 195, 195)
+                        .addComponent(Grdtotallbl2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Grdtotallbl3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Grdtotallbl, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Pay, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(184, 184, 184)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dateLab, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(timeLab, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(26, 26, 26))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,21 +376,21 @@ ResultSet Rs = null;
                 .addGap(13, 13, 13)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ProdName, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(RefreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(3, 3, 3)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(CatCb, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(FilterBy, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ProdName, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(RefreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(3, 3, 3)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(CatCb, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(FilterBy, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(23, 23, 23)
@@ -285,17 +401,35 @@ ResultSet Rs = null;
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(AddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ClearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(35, 35, 35)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Grdtotallbl, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Grdtotallbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Pay, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Grdtotallbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(33, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(402, 402, 402)
-                        .addComponent(print, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(Grdtotallbl, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(timeLab, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(dateLab, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29))))
         );
 
         jLabel10.setBackground(new java.awt.Color(255, 51, 51));
@@ -402,65 +536,60 @@ ResultSet Rs = null;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 7, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 17, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-public void SelectSeller()
-{
-try{
-     Con = DriverManager.getConnection("jdbc:derby://localhost:1527/BhatbhateniSupermarketdb","User1","1234");
-     St = Con.createStatement();
-     Rs = St.executeQuery("Select * from USER1.PRODUCTTBL");
-     ProductTable.setModel(DbUtils.resultSetToTableModel(Rs));
-}catch(Exception e)
-    {
-    e.printStackTrace();
+public void SelectSeller() {
+        try {
+            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/BhatbhateniSupermarketdb", "User1", "1234");
+            St = Con.createStatement();
+            Rs = St.executeQuery("Select * from USER1.PRODUCTTBL");
+            ProductTable.setModel(DbUtils.resultSetToTableModel(Rs));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-}
-int Prid, newQty;
-public void update()
-{
-     try{
-                 Con = DriverManager.getConnection("jdbc:derby://localhost:1527/BhatbhateniSupermarketdb","User1","1234");
-                 String Query ="Update USER1.PRODUCTTBL set PRODQTY="+newQty+""+" where PRODID="+Prid;
-                 Statement Add = Con.createStatement();
-                 Add.executeUpdate(Query);
-                  //JOptionPane.showMessageDialog(this,"Product Updated");
-                  SelectSeller();
-           }catch(SQLException e)
-           {
-             e.printStackTrace();   
-           }
+    int Prid, newQty;
+
+    public void update() {
+        try {
+            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/BhatbhateniSupermarketdb", "User1", "1234");
+            String Query = "Update USER1.PRODUCTTBL set PRODQTY=" + newQty + "" + "where PRODID=" + Prid;
+            Statement Add = Con.createStatement();
+            Add.executeUpdate(Query);
+            //JOptionPane.showMessageDialog(this,"Product Updated");
+            SelectSeller();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-private void GetCat()
-{
-    try{
-     Con = DriverManager.getConnection("jdbc:derby://localhost:1527/BhatbhateniSupermarketdb","User1","1234");
-     St = Con.createStatement();
-     String query = "Select * from USER1.CATEGORYTBL";
-     Rs = St.executeQuery(query);
-     while(Rs.next())
-     {
-         String Mycat = Rs.getString("CATNAME");
-         CatCb.addItem(Mycat);
-     }
-}catch(Exception e)
-{
-    e.printStackTrace();
-}
-}
-Double Uprice, ProdTot=0.0,GrdTotal=0.0;
-int AvailQty;
+
+    private void GetCat() {
+        try {
+            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/BhatbhateniSupermarketdb", "User1", "1234");
+            St = Con.createStatement();
+            String query = "Select * from USER1.CATEGORYTBL";
+            Rs = St.executeQuery(query);
+            while (Rs.next()) {
+                String Mycat = Rs.getString("CATNAME");
+                CatCb.addItem(Mycat);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    Double Uprice, ProdTot = 0.0, GrdTotal = 0.0;
+    int AvailQty;
     private void ProdNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ProdNameActionPerformed
@@ -468,37 +597,52 @@ int AvailQty;
     private void ProdQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdQtyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ProdQtyActionPerformed
-int i = 0;
+    int i = 0;
     private void AddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBtnMouseClicked
-if(ProdQty.getText().isEmpty()|| ProdName.getText().isEmpty())
-    {
-     JOptionPane.showMessageDialog(this, "Missing Information"); 
-    }
-else if(AvailQty <= Integer.valueOf(ProdQty.getText()))
-    {
- JOptionPane.showMessageDialog(this, "Not Enough In Stock");     
-}
-else{
-    i++;
-    ProdTot = Uprice * Double.valueOf(ProdQty.getText());
-    GrdTotal = GrdTotal+ProdTot;
-    if(i == 1)
-    {
-        BillTxt.setText(BillTxt.getText()+"                 ==========BHATBHATENI SUPERMARKET==========\n"+" NUM              PRODUCT             PRICE               QUANTITY                TOTAL\n"+i+"                "+ProdName.getText()+"              "+Uprice+"              "+ProdQty.getText()+"               "+ProdTot+"\n");
-    }
-    else{
-       BillTxt.setText(BillTxt.getText()+i+"                "+ProdName.getText()+"              "+Uprice+"              "+ProdQty.getText()+"               "+ProdTot+"\n");
-    }
-    Grdtotallbl.setText("Rs"+GrdTotal);
-    update();
-} 
+        if (ProdQty.getText().isEmpty() || ProdName.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Missing Information");
+        } else if (AvailQty <= Integer.valueOf(ProdQty.getText())) {
+            JOptionPane.showMessageDialog(this, "Not Enough In Stock");
+        } else {
+            i++;
+            ProdTot = Uprice * Integer.valueOf(ProdQty.getText());
+            GrdTotal = GrdTotal + ProdTot;
+            if (i == 1) {
+                
+        Calendar timer = Calendar.getInstance();
+        timer.getTime();
+        SimpleDateFormat tTime = new SimpleDateFormat("hh:mm:ss a");;
+        tTime.format(timer.getTime());
+        SimpleDateFormat tdate = new SimpleDateFormat("dd-MM-yyyy");;
+        tdate.format(timer.getTime());
+                BillTxt.setText(BillTxt.getText()+ "---------------------------------------------------------------------------------------------------------" + "\n"
+                        + "\t" + "                     BHAT-BHATENI SUPERMARKET" + "\n"
+                        + "Contact No.: +9779812360786" + "\n"
+                        + "Address: Near Sani Mandir, Dharan Road, BiratNagar." + "\n"
+                        + "VAT Bill No.:                 " + "\n"
+                        + "Invoice Date:                 " + "\n"
+                        + "Bill To:                      " + "\n"
+                        + "Address:                      " + "\n"
+                        + "Date: " + tdate.format(timer.getTime()) + "\n\n"
+                        + "DEAR CUSTOMER," + "\n" 
+                        + "---------------------------------------------------------------------------------------------------------" + "\n"
+                        + "NUM              PRODUCT             PRICE               QUANTITY                TOTAL" + "\n"
+                        + "---------------------------------------------------------------------------------------------------------" + "\n"
+                        + i + "                        " + ProdName.getText() + "                    " + Uprice + "                " + ProdQty.getText() + "                              " + ProdTot + "\n");
+            } else {
+                BillTxt.setText(BillTxt.getText() + i + "                        " + ProdName.getText() + "                    " + Uprice + "                " + ProdQty.getText() + "                              " + ProdTot + "\n");
+              
+            }
+             Grdtotallbl.setText("Rs" + GrdTotal);
+            update();
+        }
     }//GEN-LAST:event_AddBtnMouseClicked
 
     private void ClearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClearBtnMouseClicked
-   
+
         ProdName.setText("");
         ProdQty.setText("");
-       
+
     }//GEN-LAST:event_ClearBtnMouseClicked
 
     private void ClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearBtnActionPerformed
@@ -506,7 +650,7 @@ else{
     }//GEN-LAST:event_ClearBtnActionPerformed
 
     private void ProductTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductTableMouseClicked
-        DefaultTableModel model = (DefaultTableModel)ProductTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
         int Myindex = ProductTable.getSelectedRow();
         Prid = Integer.valueOf(model.getValueAt(Myindex, 0).toString());
         ProdName.setText(model.getValueAt(Myindex, 1).toString());
@@ -516,16 +660,38 @@ else{
     }//GEN-LAST:event_ProductTableMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-      System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void printMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printMouseClicked
-      try{
-          BillTxt.print();
-             }catch(Exception e)
-             {
-                 
-             }
+        try {
+        Calendar timer = Calendar.getInstance();
+        timer.getTime();
+        SimpleDateFormat tTime = new SimpleDateFormat("hh:mm:ss a");;
+        tTime.format(timer.getTime());
+        SimpleDateFormat tdate = new SimpleDateFormat("dd-MM-yyyy");;
+        tdate.format(timer.getTime());
+            BillTxt.setText(BillTxt.getText()+ "---------------------------------------------------------------------------------------------------------" + "\n"
+                    + "\t\t\t        Gross Amount: " + GrdTotal + "\n"
+                    + "---------------------------------------------------------------------------------------------------------" + "\n"
+                    + ""
+                    + "THANK YOU!! PLEASE VISIT AGAIN !!" + "\n"
+                    + "EXCHANGE IN 7 DAYS WITH INVOICE BETWEEN 10-8PM(Tel. 021-574535)" + "\n"
+                    + "***CONDITION APPLY***" + "\n"
+                    + "BRANCH- BIRATNAGAR" + "\n"
+                    + "---------------------------------------------------------------------------------------------------------"+"\n" 
+                    + "Time: " + tTime.format(timer.getTime()));
+                               
+         //Date obj = new Date();
+         //String date = obj.toString();
+         //BillTxt.setText(BillTxt.getText()+"\n"+date+"\n\n");
+         
+            BillTxt.print();
+           
+        } catch (Exception e) {
+
+        }
+         
     }//GEN-LAST:event_printMouseClicked
 
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
@@ -534,22 +700,22 @@ else{
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         new Login().setVisible(true);
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-          new Products().setVisible(true);
-       this.dispose();
+        new Products().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-       new Category().setVisible(true);
-       this.dispose();
+        new Category().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         new Seller().setVisible(true);
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void RefreshBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RefreshBtnMouseClicked
@@ -561,20 +727,35 @@ else{
     }//GEN-LAST:event_RefreshBtnActionPerformed
 
     private void CatCbItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CatCbItemStateChanged
-  
+
     }//GEN-LAST:event_CatCbItemStateChanged
 
     private void FilterByMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FilterByMouseClicked
-      try{
-     Con = DriverManager.getConnection("jdbc:derby://localhost:1527/BhatbhateniSupermarketdb","User1","1234");
-     St = Con.createStatement();
-     Rs = St.executeQuery("Select * from USER1. CATEGORYTBL where CATNAME='"+CatCb.getSelectedItem().toString()+"'");
-     ProductTable.setModel(DbUtils.resultSetToTableModel(Rs));
-    }catch(Exception e)
-    {
-    e.printStackTrace();
-    }
+        try {
+            Con = DriverManager.getConnection("jdbc:derby://localhost:1527/BhatbhateniSupermarketdb", "User1", "1234");
+            St = Con.createStatement();
+            Rs = St.executeQuery("Select * from USER1. CATEGORYTBL where CATNAME='" + CatCb.getSelectedItem().toString() + "'");
+            ProductTable.setModel(DbUtils.resultSetToTableModel(Rs));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_FilterByMouseClicked
+
+    private void PayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PayActionPerformed
+
+    private void BalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BalanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BalanceActionPerformed
+
+    private void dateLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateLabActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateLabActionPerformed
+
+    private void timeLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeLabActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeLabActionPerformed
 
     /**
      * @param args the command line arguments
@@ -613,17 +794,24 @@ else{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddBtn;
+    private javax.swing.JTextField Balance;
     private javax.swing.JTextArea BillTxt;
     private javax.swing.JComboBox CatCb;
     private javax.swing.JButton ClearBtn;
     private javax.swing.JButton FilterBy;
     private javax.swing.JLabel Grdtotallbl;
+    private javax.swing.JLabel Grdtotallbl2;
+    private javax.swing.JLabel Grdtotallbl3;
+    private javax.swing.JTextField Pay;
     private javax.swing.JTextField ProdName;
     private javax.swing.JTextField ProdQty;
     private javax.swing.JTable ProductTable;
     private javax.swing.JButton RefreshBtn;
+    private javax.swing.JTextField dateLab;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -636,5 +824,6 @@ else{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton print;
+    private javax.swing.JTextField timeLab;
     // End of variables declaration//GEN-END:variables
 }

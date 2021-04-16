@@ -44,7 +44,7 @@ ResultSet Rs = null;
         AdminName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         AdminPass = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        UpdateBtn = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
 
@@ -84,17 +84,17 @@ ResultSet Rs = null;
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Century Gothic", 3, 24)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 0, 51));
-        jButton5.setText("UPDATE");
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        UpdateBtn.setFont(new java.awt.Font("Century Gothic", 3, 24)); // NOI18N
+        UpdateBtn.setForeground(new java.awt.Color(255, 0, 51));
+        UpdateBtn.setText("UPDATE");
+        UpdateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
+                UpdateBtnMouseClicked(evt);
             }
         });
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        UpdateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                UpdateBtnActionPerformed(evt);
             }
         });
 
@@ -128,7 +128,7 @@ ResultSet Rs = null;
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(UpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65))
@@ -169,7 +169,7 @@ ResultSet Rs = null;
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63))
         );
@@ -197,9 +197,9 @@ ResultSet Rs = null;
         // TODO add your handling code here:
     }//GEN-LAST:event_AdminPassActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_UpdateBtnActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -214,7 +214,7 @@ ResultSet Rs = null;
         AdminPass.setText("");
     }//GEN-LAST:event_jButton6MouseClicked
 
-    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+    private void UpdateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateBtnMouseClicked
         if(AdminName.getText().isEmpty()|| AdminPass.getText().isEmpty())
        {
            JOptionPane.showMessageDialog(this,"Missing Information");
@@ -232,7 +232,7 @@ ResultSet Rs = null;
              e.printStackTrace();   
            }
        }    
-    }//GEN-LAST:event_jButton5MouseClicked
+    }//GEN-LAST:event_UpdateBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -272,7 +272,7 @@ ResultSet Rs = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AdminName;
     private javax.swing.JTextField AdminPass;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton UpdateBtn;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
